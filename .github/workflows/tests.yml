@@ -1,0 +1,28 @@
+name: Offline tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python run_tests.py
+  native:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download checksum-verified toolchain
+        run: python tools/fetch_zig.py
+      - name: Build validation components
+        shell: pwsh
+        run: |
+          $zigPath = (Get-ChildItem .tools -Recurse -Filter zig.exe | Select-Object -First 1).FullName
+          python native/build.py --zig $zigPath
+      - run: python run_tests.py --native
