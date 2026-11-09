@@ -13,6 +13,10 @@ The repository owner initiated the problem, supplied the laptop context and dire
 
 The fixture provenance reflects the earlier experiment records. Re-running this public suite consumes the saved fixtures; it does not independently re-execute Windows/Intel code. Shared assumptions between the Python and C implementations can survive differential testing.
 
+## Package comparison (Claude)
+
+`docs/PACKAGE-COMPARISON.md` and `tools/package_analysis/*.py` were produced in a separate session by Anthropic's Claude (Claude Code, Sonnet 5.5) working under the repository owner's direction. The session downloaded the two vendor packages, unpacked them without executing them, ran the scripts, and wrote the document. The scripts are AI-generated, were exercised only against the examined 8265 driver builds, and have not been independently reviewed. Their conclusions rest on string and cross-reference analysis, not on live hardware.
+
 ## Excluded material
 
 No Intel or Windows executable, PDB, WDK header/XML, downloaded upstream source, raw proprietary disassembly, toolchain, live memory dump, packet capture, private network identifier or full chat transcript is included. The raw working archive is not a release asset.

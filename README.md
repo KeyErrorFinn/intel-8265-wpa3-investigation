@@ -21,6 +21,7 @@ OpenAI Codex and its subagents performed substantial source review, binary analy
 - Controlled emulation of the examined Windows driver found missing SAE command registration and legacy authentication continuations incompatible with a complete SAE exchange.
 - Native payload codecs, receive/transmit-body adapters, association-IE encoding and a caller-serialized session gate were implemented and tested offline.
 - Those components were never integrated into a safely loadable kernel driver. Connection lifetime, cancellation, complete transport/association/key integration and physical validation remain unfinished.
+- A static comparison of Intel's 22.200.2 package and Dell's 22.130.0.5 package found that neither contains a WPA3-capable driver for the 8265. Both install the legacy `Netwtw06` branch (Intel 20.70.32.1, Dell 20.70.30.1), whose authentication-algorithm handling stops at the pre-WPA3 values and which has no RSNXE/H2E handling. The same packages do contain WPA3-capable drivers for 9260/9560/AX200/AX210-class cards. See [package comparison](docs/PACKAGE-COMPARISON.md).
 
 The failure log alone did not prove the diagnosis. Earlier hardware-impossibility claims were too strong, and growing test counts did not mean an installable driver was close. [Findings and corrections](docs/FINDINGS.md) explains these limits.
 
@@ -32,6 +33,7 @@ The failure log alone did not prove the diagnosis. Earlier hardware-impossibilit
 | Native C | Codec, body adapters, session gate and pinned-layout identity reader | No kernel entry, hooks, synchronization or hardware transport |
 | Tests | Synthetic vectors, malformed input, ownership checks, mutation comparisons and session ordering | No physical radio or valid cryptographic exchange |
 | Research notes | Architecture comparison, evidence levels, corrections and unresolved work | Selected conclusions; raw proprietary disassembly is not published |
+| Package analysis | `docs/PACKAGE-COMPARISON.md` and `tools/package_analysis/` (PE summary, auth-string cross-reference and disassembly helper scripts) | Static analysis only; needs `capstone` and `pefile`; not part of the portable test suite |
 
 The fixture object addresses and MAC addresses are synthetic. They are not a live memory dump or radio capture.
 

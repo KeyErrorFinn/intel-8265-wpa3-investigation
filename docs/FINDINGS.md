@@ -24,6 +24,8 @@ Controlled offline experiments against a pinned Intel driver build reported:
 
 These are historical observations from emulation with explicit environment substitutions, not published live-hardware results. Vendor executables and raw disassembly are excluded. The public tests do not rerun those experiments.
 
+A later static comparison of the Intel and Dell driver packages, and of the `Netwtw06` and WPA3-capable `Netwtw12` drivers, is in [PACKAGE-COMPARISON.md](PACKAGE-COMPARISON.md). It supports the conclusion that no packaged driver for this card implements WPA3-SAE, with its own stated limits.
+
 ## Implemented components
 
 The native code parses owned WDI request data, encodes indications and authentication bodies, writes a narrow association security configuration and exposes a new session gate. The gate models generation/peer checks, OS success, outstanding TX leases, cancellation and explicit quiescence. Its caller must provide real serialization, storage lifetime and transport semantics. It is not an installed driver state machine.
